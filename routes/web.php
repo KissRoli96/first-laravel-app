@@ -68,3 +68,28 @@ Route::delete('/products/{id}/delete', function ($id) {
         'message'    => 'Product deleted',
     ]);
 });
+
+/*2. Hozz létre egy /user/{id}/post/{postid} route-ot, amely két paramétert fogad.
+ Jelenítse meg: "Felhasználó: {id}, Bejegyzés: {postid}".
+  Például /user/5/post/10 esetén: "Felhasználó: 5, Bejegyzés: 10"
+*/
+ Route::get('/user/{id}/post/{postid}', function ($id, $postid) {
+    return response()->json([
+        'operation' => 'list a post',
+        'post_id' => (int) $postid,
+        'user_id' => (int) $id,
+        'message' => "Felhasználó: {id}, Bejegyzés: {postid}"
+    ]);
+});
+
+Route::get('/welcome/{name?}', function ($name = null){
+    $message = '';
+    if (is_null($name)) {
+        $message = "Üdv Vendég!";
+    }
+        $message = "Üdv {$name}";
+    return response()->json([
+        'name'=> $name,
+        'message' =>  $message
+    ]);
+    });
