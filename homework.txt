@@ -1,0 +1,103 @@
+Feladat 1:
+php --version
+PHP 8.4.1 (cli) (built: Nov 21 2024 08:58:25) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.4.1, Copyright (c) Zend Technologies
+ composer --version
+Composer version 2.8.3 2024-11-17 13:13:04
+PHP version 8.4.1 (/home/roland-kiss/.config/herd-lite/bin/php)
+Run the "diagnose" command to get more detailed diagnostics output.
+node --version
+node v24.8.0
+npm: 11.6.0
+
+2. feladat - Laravel projekt létrehozása és struktúra elemzés
+
+ 1. app/
+English: The app directory contains the core code of your application, such as models, controllers, and business logic.
+Hungarian: Az app könyvtár tartalmazza az alkalmazás fő kódját, például a modelleket, kontrollereket és az üzleti logikát.
+
+2. bootstrap/
+English: The bootstrap directory holds files for starting the framework, including app.php, and contains the cache folder for optimized files.
+Hungarian: A bootstrap könyvtár tartalmazza a keretrendszer indításához szükséges fájlokat, például az app.php-t, valamint a gyorsítótárazott fájlokat a cache mappában.
+3. config/
+English: The config directory stores all configuration files, such as database settings, mail, and cache configurations.
+Hungarian: A config könyvtárban találhatók a konfigurációs fájlok, például az adatbázis-, e-mail- és gyorsítótár-beállítások.
+4. database/
+English: The database directory contains migration files, model factories, and seeders for testing and populating the database.
+Hungarian: A database könyvtár tartalmazza a migrációs fájlokat, a modellek gyárait (factory), valamint a seedereket az adatbázis feltöltéséhez és teszteléséhez.
+5. public/
+English: The public directory is the entry point of the application, holding the index.php file and assets like images, CSS, and JavaScript.
+Hungarian: A public könyvtár az alkalmazás belépési pontja, itt található az index.php fájl, valamint az erőforrások, mint a képek, CSS és JavaScript.
+6. resources/
+English: The resources directory contains views, raw assets (CSS, JS), and language files.
+Hungarian: A resources könyvtárban találhatók a nézetek, a nyers erőforrások (CSS, JS) és a nyelvi fájlok.
+7. routes/
+English: The routes directory defines all the application’s routes, such as web.php and api.php.
+Hungarian: A routes könyvtár tartalmazza az alkalmazás összes útvonalát, például a web.php-t és az api.php-t.
+8. storage/
+English: The storage directory is used for logs, compiled Blade templates, caches, and uploaded files.
+Hungarian: A storage könyvtár a naplókat, a lefordított Blade sablonokat, a gyorsítótárat és a feltöltött fájlokat tárolja.
+9. vendor/
+English: The vendor directory contains all Composer dependencies of the application.
+Hungarian: A vendor könyvtárban találhatók az alkalmazás Composer-függőségei.
+3 feladat.
+
+Artisan parancsok.
+
+php artisan config:clear
+php artisan route:list
+php artisan migrate
+php artisan about
+php artisan event:list
+
+php artisan config:clear
+
+English:
+This command clears the configuration cache. Laravel caches your config files (.env, config/*.php) for performance. If you change .env or config files, you need to clear the cache so Laravel loads the new values.
+Hungarian:
+Ez a parancs törli a konfigurációs gyorsítótárat. A Laravel a konfigurációs fájlokat (.env, config/*.php) gyorsítótárba helyezi a jobb teljesítmény érdekében. Ha módosítod az .env vagy config fájlokat, futtatnod kell, hogy a Laravel újra betöltse az értékeket.
+
+🔹 2. php artisan route:list
+
+English:
+Displays all the registered routes in your application, including the HTTP method (GET, POST, etc.), the URI, the name of the route, the controller/method handling it, and middleware. It’s very useful for debugging routes.
+
+Hungarian:
+Kilistázza az alkalmazás összes regisztrált útvonalát (route), beleértve a HTTP metódust (GET, POST, stb.), az URI-t, az útvonal nevét, a hozzá tartozó kontrollert/metódust és a middleware-t. Hasznos az útvonalak ellenőrzésére és hibakeresésre.
+
+🔹 3. php artisan migrate
+
+English:
+Runs all the outstanding database migrations. A migration is like a version control file for your database schema (tables, columns, indexes). With this command, Laravel updates your database structure to match your migration files.
+
+Hungarian:
+Futtatja az összes függőben lévő adatbázis-migrációt. A migráció olyan, mint egy verziókezelő fájl az adatbázis sémához (táblák, oszlopok, indexek). Ezzel a paranccsal a Laravel frissíti az adatbázis szerkezetét a migrációs fájlok alapján.
+
+🔹 4. php artisan about
+
+English:
+Shows a summary of your Laravel application’s environment and configuration. It includes the Laravel version, PHP version, environment (local/production), debug mode, cache settings, queue driver, session driver, and more.
+
+Hungarian:
+Megjeleníti a Laravel alkalmazás környezeti és konfigurációs összefoglalóját. Tartalmazza a Laravel verzióját, a PHP verziót, a környezetet (local/production), a hibakeresési módot, a cache beállításokat, a queue drivert, a session drivert és egyéb adatokat.
+
+php artisan event:list
+
+English:
+This command shows all the events and their corresponding listeners that are registered in your Laravel application.
+
+Events are signals that something happened in your app (e.g. UserRegistered, OrderShipped).
+
+Listeners are the actions that should run when those events happen (e.g. SendWelcomeEmail, NotifyWarehouse).
+
+By running event:list, you get a table of Event → Listener(s) mappings. It’s helpful for debugging or understanding what your application does when specific events fire.
+
+Hungarian:
+Ez a parancs megmutatja az összes eseményt (event) és a hozzájuk tartozó hallgatókat (listener), amelyek a Laravel alkalmazásban regisztrálva vannak.
+
+Az események jelzik, hogy valami történt az alkalmazásban (pl. UserRegistered, OrderShipped).
+
+A hallgatók azok a műveletek, amelyek az esemény bekövetkezésekor lefutnak (pl. SendWelcomeEmail, NotifyWarehouse).
+
+Az event:list egy táblázatban jeleníti meg az Esemény → Listener(ek) párosokat. Hasznos a hibakereséshez vagy az alkalmazás működésének megértéséhez, hogy lásd, milyen műveletek futnak le bizonyos eseményeknél.
