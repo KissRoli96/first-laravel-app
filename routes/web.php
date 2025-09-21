@@ -92,4 +92,14 @@ Route::get('/welcome/{name?}', function ($name = null){
         'name'=> $name,
         'message' =>  $message
     ]);
-    });
+});
+
+Route::get('/profile', function ()  {
+    return response()->json([
+        'operation' => 'Profile'
+    ]);
+})->name('profile.show');
+
+Route::get('/test', function () {
+
+});
