@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Response;
@@ -16,12 +17,13 @@ Route::get('/home2', function (): View {
 Route::get('/greeting', function () {
     return 'Hello World';
 });
+
 /*
 Route::get('/products', function (): Response{
     return response('All Products delivered', 200)
         ->header('Content-Type', 'application/json');
 });
-*/
+
 Route::post('products/create', function (): Response {
     return response('created', 201)
         ->header('Content-Type', 'application/json');
@@ -38,8 +40,9 @@ Route::delete('/products/{id}/delete', function ($id): Response{
 });
 */
 
-Route::get('/products', function () {
+Route::get('/products', function (Request $request) {
     return response()->json([
+        'request' => $request,
         'operation' => 'list',
         'message'   => 'Listed products',
     ]);
@@ -82,24 +85,48 @@ Route::delete('/products/{id}/delete', function ($id) {
     ]);
 });
 
+/*
+3. Készíts egy /welcome/{name?} route-ot opcionális paraméterrel.
+Ha megadják a nevet, köszöntsön név szerint ("Üdv {név}!"), ha nem adnak meg nevet,
+ akkor általános üdvözlés legyen ("Üdv Vendég!").
+*/
 Route::get('/welcome/{name?}', function ($name = null){
     $message = '';
     if (is_null($name)) {
         $message = "Üdv Vendég!";
-    }
+    } else {
         $message = "Üdv {$name}";
+    }
     return response()->json([
         'name'=> $name,
         'message' =>  $message
     ]);
 });
 
+/*
+4. Hozz létre egy /profile route-ot és adj neki "profile.show" nevet a ->name() metódussal.
+Készíts egy másik route-ot /test,
+amely a route('profile.show') helper függvénnyel generálja és jelenítse meg a profile route URL-jét.
+*/
 Route::get('/profile', function ()  {
     return response()->json([
-        'operation' => 'Profile'
+        'operation' => 'Profile',
+        'message' => 'Profie test page'
     ]);
 })->name('profile.show');
 
 Route::get('/test', function () {
-
+    $url = route('profile.show');
+    return response()->json([
+        'profile_url' => $url
+    ]);
 });
+
+/*
+5. Hozz létre egy PageController-t a make:controller paranccsal.
+Készíts benne egy home() metódust,
+amely a view() helper-rel visszaad egy 'welcome' nézetet. Kösd össze a / route-ot ezzel a controller metódussal.
+A controller-ben használd a config() helper-t az alkalmazás nevének megjelenítéséhez.
+*/
+
+Route::get('/', [PageController::class,'home']);
