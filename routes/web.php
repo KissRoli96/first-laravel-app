@@ -3,6 +3,7 @@
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -40,47 +41,47 @@ Route::delete('/products/{id}/delete', function ($id): Response{
 });
 */
 
-Route::get('/products', function (Request $request) {
+Route::get('/products', function (Request $request):JsonResponse {
     return response()->json([
         'request' => $request,
         'operation' => 'list',
         'message'   => 'Listed products',
     ]);
-});
+})->name('guest.products.list');
 
-Route::post('/products/create', function (Request $request) {
+Route::post('/products/create', function (Request $request):JsonResponse{
     // $request->all() would have the incoming JSON body
     return response()->json([
         'operation' => 'create',
         'message'   => 'Product created',
     ], 201);
-});
+})->name('guest.products.create');
 
-Route::put('/products/{id}/edit', function (Request $request, $id) {
+Route::put('/products/{id}/edit', function (Request $request, int $id):JsonResponse {
     return response()->json([
         'operation'  => 'update',
-        'product_id' => (int) $id,
+        'product_id' => $id,
         'message'    => 'Product updated',
     ]);
-});
+})->name('guest.products.edit');
 
-Route::delete('/products/{id}/delete', function ($id) {
+Route::delete('/products/{id}/delete', function (int $id):JsonResponse {
     return response()->json([
         'operation'  => 'delete',
-        'product_id' => (int) $id,
+        'product_id' => $id,
         'message'    => 'Product deleted',
     ]);
-});
+})->name('guest.prodcuts.delete');
 
 /*2. Hozz létre egy /user/{id}/post/{postid} route-ot, amely két paramétert fogad.
  Jelenítse meg: "Felhasználó: {id}, Bejegyzés: {postid}".
   Például /user/5/post/10 esetén: "Felhasználó: 5, Bejegyzés: 10"
 */
- Route::get('/user/{id}/post/{postid}', function ($id, $postid) {
+ Route::get('/user/{id}/post/{postId}', function (int $id, int $postId):JsonResponse {
     return response()->json([
         'operation' => 'list a post',
-        'post_id' => (int) $postid,
-        'user_id' => (int) $id,
+        'post_id' => $postId,
+        'user_id' => $id,
         'message' => "Felhasználó: {id}, Bejegyzés: {postid}"
     ]);
 });
@@ -90,13 +91,14 @@ Route::delete('/products/{id}/delete', function ($id) {
 Ha megadják a nevet, köszöntsön név szerint ("Üdv {név}!"), ha nem adnak meg nevet,
  akkor általános üdvözlés legyen ("Üdv Vendég!").
 */
-Route::get('/welcome/{name?}', function ($name = null){
+Route::get('/welcome/{name?}', function ($name = null):JsonResponse{
     $message = '';
     if (is_null($name)) {
         $message = "Üdv Vendég!";
     } else {
         $message = "Üdv {$name}";
     }
+
     return response()->json([
         'name'=> $name,
         'message' =>  $message
@@ -108,14 +110,14 @@ Route::get('/welcome/{name?}', function ($name = null){
 Készíts egy másik route-ot /test,
 amely a route('profile.show') helper függvénnyel generálja és jelenítse meg a profile route URL-jét.
 */
-Route::get('/profile', function ()  {
+Route::get('/profile', function ():JsonResponse  {
     return response()->json([
         'operation' => 'Profile',
         'message' => 'Profie test page'
     ]);
 })->name('profile.show');
 
-Route::get('/test', function () {
+Route::get('/test', function ():JsonResponse {
     $url = route('profile.show');
     return response()->json([
         'profile_url' => $url
